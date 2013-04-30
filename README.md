@@ -27,12 +27,27 @@ The idea is to be the equivalent to what [Reddit Enhancement Suite](http://reddi
 
 ![](http://evan.pro/caps/a355b8.png)
 
+* Convert issue IDs matching a certain pattern to links to your issue tracker.
+
+![](http://evan.pro/caps/9ffdfd.png)
+
+* Replace the GitHub favicon with a light version if you have a dark browser theme.
+
+![](http://evan.pro/caps/bd4517.png)
+
+* Integrated settings panel within the GitHub UI.
+
+![](http://evan.pro/caps/c953f7.png)
+
+
 ## Planned Features
 
-* Merging features from my other GitHub-related user scripts.
 * Making all features optional via the settings page.
 * Automated test suite for detecting regressions???
 * Various improvements to the pull request / code review process.
+* Improve the issue pattern/linking feature to be per-repo and support any
+  arbitrary URL / pattern(s). Currently it is catered towards JIRA IDs and
+  URL's slightly.
 * Whatever else I come up with.
 
 ## Installation
