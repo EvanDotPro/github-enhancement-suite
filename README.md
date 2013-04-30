@@ -9,6 +9,9 @@ features to GitHub. It should work with most modern browsers. GES is able to
 perform some pretty awesome things by supplementing any GitHub page with
 additional information from the GitHub API.
 
+The idea is to be the equivalent to what [Reddit Enhancement Suite](http://redditenhancementsuite.com/)
+ (RES) is to Reddit, but for GitHub.
+
 ## Features
 
 * When browsing lists of closed pull requests, you can tell the difference
