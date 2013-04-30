@@ -12,9 +12,9 @@ additional information from the GitHub API.
 ## Features
 
 * When browsing lists of closed pull requests, you can tell the difference
-  between PRs which have been merged and which haven't. The icon next to a
-  merged pull request will show as light blue, while unmerged pull requests
-  will show red.
+  between pull requests which have been merged and which haven't. The icon next
+  to a merged pull request will show as light blue, while unmerged pull
+  requests will show red.
 
 ![](http://evan.pro/caps/c4f064.png)
 

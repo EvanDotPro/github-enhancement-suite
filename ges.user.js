@@ -47,14 +47,6 @@ GES.gh.renderSettings = function() {
     });
 };
 
-GES.gh.oauthCheck = function(connected, notConnected) {
-    if (!GES.storage('oauth-key')) {
-        return notConnected();
-    } else {
-        return connected();
-    }
-};
-
 /**
  * Parse the window location (current URL) to figure out where exactly we are.
  */
