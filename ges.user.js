@@ -33,13 +33,18 @@ GES.settings = [
         type:  'checkbox'
     },
     {
-        label: 'Issue ID Pattern',
+        label: 'Issue ID Matching Pattern',
         key:   'issue-pattern',
         type:  'text'
     },
     {
-        label: 'JIRA URL (with trailing slash)',
-        key:   'jira-url',
+        label: 'Issue Replace Pattern',
+        key:   'issue-replace-pattern',
+        type:  'text'
+    },
+    {
+        label: 'Issue URL (with trailing slash)',
+        key:   'issue-url',
         type:  'text'
     },
     {
@@ -68,13 +73,15 @@ GES.gh.renderSettings = function() {
     if ($('div.boxed-group.ges').length > 0) return;
     $('.settings-content').append('<div class="boxed-group clearfix ges"><h3>GitHub Enhancement Suite</h3><div class="boxed-group-inner clearfix"></div></div>');
     $(GES.settings).each(function(i, setting) {
+        var storedValue =  GES.storage(setting.key);
         switch (setting.type)
         {
             case 'text':
-                input = '<input class="ges-autosave" type="text" name="' + setting.key + '" value="' + GES.storage(setting.key) + '">';
+                storedValue = storedValue == undefined ? "" : storedValue;
+                input = '<input class="ges-autosave" type="text" name="' + setting.key + '" value="' + storedValue + '">';
                 break;
             case 'checkbox':
-                input = '<input class="ges-autosave" type="checkbox" name="' + setting.key + '" value="yes" ' + (GES.storage(setting.key) ? 'checked="checked"' : '') + '>';
+                input = '<input class="ges-autosave" type="checkbox" name="' + setting.key + '" value="yes" ' + (storedValue ? 'checked="checked"' : '') + '>';
                 break;
         }
         $('div.boxed-group.ges div.boxed-group-inner').append('<dl class="form"><dt><label>'+setting.label+'</label></dt><dd>' + input + '</dd></dl>');
@@ -138,7 +145,13 @@ GES.gh.convertIssuesToLinks = function() {
         var find = new RegExp('\\b\(' + GES.storage('issue-pattern') + '\)\\b', 'gi');
         replaceInElement(document.body, find, function(match) {
             var link = document.createElement('a');
-            link.href = GES.storage('jira-url') + 'browse/' + match[0].replace(/([A-Z]+)(\d+)/,'\$1-\$2');
+            issueId = match[0];
+            var replacePattern = GES.storage('issue-replace-pattern');
+            if (replacePattern != undefined && replacePattern != "") {
+                var pattern = new RegExp(GES.storage('issue-pattern'), 'gi');
+                issueId = issueId.replace(pattern, replacePattern);
+            }
+            link.href = GES.storage('issue-url') + issueId;
             link.appendChild(document.createTextNode(match[0]));
             return link;
         });
@@ -154,17 +167,17 @@ GES.init = function() {
     GES.gh.convertIssuesToLinks();
 
     var changeValue = function() {
-        if ($(this).attr('type') == 'checkbox') {
+        var el = $(this);
+        if (el.attr('type') == 'checkbox') {
             value = this.checked;
         } else {
-            value = $(this).val();
+            value = el.val();
         }
-        GES.storage($(this).attr('name'), value);
+
+        GES.storage(el.attr('name'), value);
     }
     $('input.ges-autosave').keypress(changeValue).change(changeValue);
 };
-
-
 
 /**
  * Start everything once the dom is ready...
